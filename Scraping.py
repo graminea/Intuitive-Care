@@ -1,13 +1,31 @@
-import requests
+import requests 
 import os
 from bs4 import BeautifulSoup
 import zipfile 
 
 def get_website(url):
+    """
+    Pega o conteudo do site e retorna em texto.
+    
+    Parametros:
+    url(str): URL do site a ser acessado.
+    
+    Returns:
+    str: conteúdo do site.  
+    """
     response = requests.get(url) # pegar o conteudo do site
     return response.text # retorna em texto para facilitar o parser
 
 def scrape(html):
+    """
+    Faz o parser do html e retorna os links dos anexos I e II.
+    
+    Parametros:
+    html(str): conteúdo do site.
+    
+    Returns:
+    tuple: (str, str): os links dos anexos I e II.
+    """
     parsed_html = BeautifulSoup(html, 'html.parser') # fazer o parser do html
     
     anexo1 = parsed_html.find('a', string='Anexo I.').get('href') # encontrar a tag que contem "Anexo I." e pegarr o link
@@ -17,6 +35,17 @@ def scrape(html):
     return anexo1, anexo2 # retorna os links
 
 def save_and_compact(anexo1, anexo2):
+    """
+    Salva os anexos I e II em pdf e compacta em um arquivo .zip.
+    
+    Parametros:
+    anexo1(str): link do anexo I.
+    anexo2(str): link do anexo II.
+    
+    Returns:
+    None
+    
+    """
     os.makedirs('data', exist_ok=True) # cria o diretórrio /data caso não exista para armazenar os arquivos auxiliares
 
     # salvar os anexos I e II em pdf
