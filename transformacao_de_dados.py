@@ -1,75 +1,69 @@
 import zipfile
 import pdfplumber
 import pandas as pd
-import re
 
-def extrair(zip_path):
+def compactar(csv_path):
     """
-    Extrai o zip dos anexos.
+    Compacta o arquivo CSV em um zip.
 
     Parametros:
-    path(str): Caminho do arquivo zip. (anexos.zip nesse caso expecifico)
-
-    ele será extraido para o diretorio do programa para arquivos (/data).
+    path(str): Caminho do arquivo CSV. (anexo_I.csv nesse caso expecifico)
 
     Returns:
     None
     """
-    with zipfile.ZipFile('data/anexos.zip', 'r') as zip_ref:
-        zip_ref.extractall()
+    with zipfile.ZipFile('data/Teste_Gabriel_Sagas_da_Silva.zip.', 'w') as zip_csv:
+        zip_csv.write(csv_path, arcname='anexo_I.csv') # compacta o arquivo CSV
         
-def extrair_legenda(texto_pagina):
-    """
-    Procura no rodapé da página palavras-chave que indicam o significado das siglas.
-    Retorna um dicionário de substituições encontradas.
-    """
-    legenda = {}
-
-    if "OD" in texto_pagina:
-        match_od = re.search(r"OD\s*-\s*(.+)", texto_pagina)
-        if match_od:
-            legenda["OD"] = match_od.group(1).strip()
-
-    if "AMB" in texto_pagina:
-        match_amb = re.search(r"AMB\s*-\s*(.+)", texto_pagina)
-        if match_amb:
-            legenda["AMB"] = match_amb.group(1).strip()
-
-    return legenda
 def ler_e_salvar_tabelas(path, csv_path):
     """
-    Lê as tabelas de um arquivo PDF.
+    Lê as tabelas de um arquivo PDF, transforma em DataFrame e salva como CSV. 
 
     Parametros:
     path(str): Caminho do arquivo PDF.
 
     Returns:
-    list: Lista de DataFrames com as tabelas lidas.
+    None
     """
     with pdfplumber.open(path) as pdf:
+        i = 0
         tabelas = []
-
+        
         for pagina in pdf.pages:
-            texto_pagina = pagina.extract_text()  # Extrai o texto completo da página
-            legenda_pagina = extrair_legenda(texto_pagina)  # Obtém a legenda específica da página
-            
             tabelas_extraidas = pagina.extract_tables()
             
             for tabela in tabelas_extraidas:
-                df = pd.DataFrame(tabela)
-
-                # Se houver legenda nesta página, substituímos os valores na tabela
-                if legenda_pagina:
-                    df.replace(legenda_pagina, inplace=True)
-
+                df = pd.DataFrame(tabela[1:], columns=tabela[0])  
                 tabelas.append(df)
-
+            if i == 8:
+                break
+            i += 1
+                
     if tabelas:
         resultado = pd.concat(tabelas, ignore_index=True)
-        resultado.to_csv(csv_path, index=False, header=False)  # Salva sem índice e sem cabeçalho
+        resultado.to_csv(csv_path, index=False) 
     else:
         print("Nenhuma tabela encontrada.")
 
+def modificar_tabela(csv_path):
+    """
+    Modifica o arquivo CSV para substituir OD e AMB pelos valores da legenda.
+
+    Parametros:
+    path(str): Caminho do arquivo CSV.
+
+    Returns:
+    None
+    """
+    df = pd.read_csv(csv_path)
+    
+    df.replace({
+        'OD': 'Seg. Odontológica',
+        'AMB': 'Seg. Ambulatorial'
+        }, inplace=True)
+    
+    df.to_csv(csv_path, index=False)  # Salva as modificações no mesmo arquivo CSV
 if __name__ == '__main__':
-    extrair('data/anexos.zip')
-    ler_e_salvar_tabelas('data/anexo_I.pdf', 'data/anexo_I.csv')
+    csv = ler_e_salvar_tabelas('data/anexo_I.pdf', 'data/anexo_I.csv')
+    compactar('data/anexo_I.csv')
+    modificar_tabela('data/anexo_I.csv')

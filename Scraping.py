@@ -59,13 +59,8 @@ def save_and_compact(anexo1, anexo2):
         
     # compactar os arquivos pdf em um arquivo .zip
     with zipfile.ZipFile('data/anexos.zip', 'w') as filezip:
-        filezip.write('data/anexo_I.pdf')
-        filezip.write('data/anexo_II.pdf')
-        
-    # remover os arquivos pdf
-    os.remove('data/anexo_I.pdf')
-    os.remove('data/anexo_II.pdf')
-
+        filezip.write('data/anexo_I.pdf', arcname='anexo_I.pdf') # compacta o arquivo pdf do anexo I com o nome anexo_I.pdf
+        filezip.write('data/anexo_II.pdf', arcname='anexo_II.pdf') # compacta o arquivo pdf do anexo II com o nome anexo_II.pdf
 
 if __name__ == '__main__':
     content = get_website('https://www.gov.br/ans/pt-br/acesso-a-informacao/participacao-da-sociedade/atualizacao-do-rol-de-procedimentos')
