@@ -30,18 +30,18 @@ def ler_e_salvar_tabelas(path, csv_path):
         tabelas = []
         
         for pagina in pdf.pages:
-            tabelas_extraidas = pagina.extract_tables()
+            tabelas_extraidas = pagina.extract_tables() # extrai as tabelas da pagina
             
             for tabela in tabelas_extraidas:
-                df = pd.DataFrame(tabela[1:], columns=tabela[0])  
+                df = pd.DataFrame(tabela[1:], columns=tabela[0])   # transforma a tabela em DataFrame
                 tabelas.append(df)
             if i == 8:
                 break
             i += 1
                 
     if tabelas:
-        resultado = pd.concat(tabelas, ignore_index=True)
-        resultado.to_csv(csv_path, index=False) 
+        resultado = pd.concat(tabelas, ignore_index=True) # concatena todas as tabelas em um unico DataFrame
+        resultado.to_csv(csv_path, index=False)  # salva o DataFrame em um arquivo CSV
     else:
         print("Nenhuma tabela encontrada.")
 
@@ -57,9 +57,9 @@ def modificar_tabela(csv_path):
     """
     df = pd.read_csv(csv_path)
     
-    df.replace({
-        'OD': 'Seg. Odontológica',
-        'AMB': 'Seg. Ambulatorial'
+    df.replace({ 
+        'OD': 'Seg. Odontológica', # substitui OD por Seg. Odontológica
+        'AMB': 'Seg. Ambulatorial' # substitui AMB por Seg. Ambulatorial
         }, inplace=True)
     
     df.to_csv(csv_path, index=False)  # Salva as modificações no mesmo arquivo CSV

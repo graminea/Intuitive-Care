@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "cd24b0a5-3ba7-4ef3-9904-60df36d59dff",
+		"name": "Teste_Site",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39552335"
+	},
+	"item": [
+		{
+			"name": "teste script",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Teste 1\r",
+							"/**  \r",
+							" * Teste para GET em Registro ANS = 005711\r",
+							" * - Razão Social deve ser \"BRADESCO SAÚDE S.A.\"\r",
+							" * - CNPJ deve ser \"92693118000160\"\r",
+							" * - Representante deve ser \"FLAVIO BITTER\"\r",
+							" */\r",
+							"\r",
+							"pm.sendRequest(pm.request.url.toString() + \"?column=reg_ans&value=005711\", function (err, res) {    \r",
+							"    const json = res.json();                                                                                        \r",
+							"                                                                                                     \r",
+							"    // 1. Validação da Razão Social\r",
+							"    pm.test(\"TESTE POR REGISTRO ANS -- > Razão Social = BRADESCO SAÚDE S.A.\", function () {                                                     \r",
+							"        pm.expect(json.results[0].razao_social).to.be.eq(\"BRADESCO SAÚDE S.A.\");\r",
+							"    });\r",
+							"\r",
+							"    // 2. Validação do CNPJ\r",
+							"    pm.test(\"TESTE POR REGISTRO ANS -- > CNPJ = 92693118000160\", function () {\r",
+							"        pm.expect(json.results[0].cnpj).to.be.eq(\"92693118000160\");\r",
+							"    });\r",
+							"\r",
+							"    // 3. Validação do Representante\r",
+							"    pm.test(\"TESTE POR REGISTRO ANS -- > Representante = FLAVIO BITTER\", function () {\r",
+							"        pm.expect(json.results[0].representante.trim()).to.be.eq(\"FLAVIO BITTER\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Teste 2\r",
+							"/**\r",
+							" * Teste para GET em Razão Social = SUL AMERICA COMPANHIA DE SEGURO SAÚDE\r",
+							" * - CNPJ deve ser \"01685053000156\"\r",
+							" * - Registro ANS deve ser 006246\r",
+							" * - Representante deve ser RAQUEL REIS CORREA\r",
+							" */\r",
+							"\r",
+							"pm.sendRequest(pm.request.url.toString() + \"?column=razao_social&value=SUL%20AMERICA%20COMPANHIA%20DE%20SEGURO%20SAÚDE\", function (err, res) {\r",
+							"    const json = res.json();\r",
+							"    \r",
+							"    // 1. Validação do CNPJ\r",
+							"    pm.test(\"TESTE POR RAZAO SOCIAL -- > CNPJ = 01685053000156\", function () {\r",
+							"        pm.expect(json.results[0].cnpj).to.be.eq(\"01685053000156\");\r",
+							"    });\r",
+							"\r",
+							"    // 2. Validação do Registro ANS\r",
+							"    pm.test(\"TESTE POR RAZAO SOCIAL -- > Registro ANS = 006246\", function () {\r",
+							"        pm.expect(json.results[0].reg_ans).to.be.eq(\"006246\");\r",
+							"    });\r",
+							"\r",
+							"    // 3. Validação do Representante\r",
+							"    pm.test(\"TESTE POR RAZAO SOCIAL -- > Representante = RAQUEL REIS CORREA\", function () {\r",
+							"        pm.expect(json.results[0].representante).to.be.eq(\"RAQUEL REIS CORREA\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Teste 3\r",
+							"/**\r",
+							" * Teste para GET em CNPJ = 02015569000156\r",
+							" * - Razão Social deve ser UNIODONTO DE FERNANDOPOLIS COOPERATIVA ODONTOLOGICA\r",
+							" * - Registro ANS deve ser 301647\r",
+							" * - Representante deve ser EDUARDO HAMILTON D¿AVILA\r",
+							" */\r",
+							"\r",
+							"pm.sendRequest(pm.request.url.toString() + \"?column=cnpj&value=02015569000156\", function (err, res) {\r",
+							"    const json = res.json();\r",
+							"    \r",
+							"    // 1. Validação da Razão Social\r",
+							"    pm.test(\"TESTE POR CNPJ -- > Razão Social = UNIODONTO DE FERNANDOPOLIS COOPERATIVA ODONTOLOGICA\", function () {\r",
+							"        pm.expect(json.results[0].razao_social).to.be.eq(\"UNIODONTO DE FERNANDOPOLIS COOPERATIVA ODONTOLOGICA\");\r",
+							"    });\r",
+							"\r",
+							"    // 2. Validação do Registro ANS\r",
+							"    pm.test(\"TESTE POR CNPJ -- > Registro ANS = 301647\", function () {\r",
+							"        pm.expect(json.results[0].reg_ans).to.be.eq(\"301647\");\r",
+							"    });\r",
+							"\r",
+							"    // 3. Validação do Representante\r",
+							"    pm.test(\"TESTE POR CNPJ -- > Representante = EDUARDO HAMILTON D¿AVILA\", function () {\r",
+							"        pm.expect(json.results[0].representante).to.be.eq(\"EDUARDO HAMILTON D¿AVILA\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Teste 4\r",
+							"/**\r",
+							" * Teste para GET Nome Fantasia = UNIMED INCONFIDENTES\r",
+							" * - Registro ANS deve ser\r",
+							" * - Razão Social deve ser \r",
+							" * - CNPJ deve ser\r",
+							" * - Representante deve ser \r",
+							" */\r",
+							"\r",
+							"pm.sendRequest(pm.request.url.toString() + \"?column=nome_fantasia&value=UNIMED INCONFIDENTES\", function (err, res) {\r",
+							"    const json = res.json();\r",
+							"    \r",
+							"    // 1. Validação do Registro ANS\r",
+							"    pm.test(\"TESTE POR NOME FANTASIA -- > Registro ANS = 304395\", function () {\r",
+							"        pm.expect(json.results[0].reg_ans).to.be.eq(\"304395\");\r",
+							"    });\r",
+							"\r",
+							"    // 2. Validação da Razão Social\r",
+							"    pm.test(\"TESTE POR NOME FANTASIA -- > Razão Social = UNIMED INCONFIDENTES COOPERATIVA DE TRABALHO MÉDICO LTDA.\", function () {\r",
+							"        pm.expect(json.results[0].razao_social).to.be.eq(\"UNIMED INCONFIDENTES COOPERATIVA DE TRABALHO MÉDICO LTDA.\");\r",
+							"    });\r",
+							"\r",
+							"    // 3. Validação do CNPJ\r",
+							"    pm.test(\"TESTE POR NOME FANTASIA -- > CNPJ = 22720791000167\", function () {\r",
+							"        pm.expect(json.results[0].cnpj).to.be.eq(\"22720791000167\");\r",
+							"    });\r",
+							"\r",
+							"    // 4. Validação do Representante\r",
+							"    pm.test(\"TESTE POR NOME FANTASIA -- > Representante = WILSON FERNANDO DE OLIVEIRA PENA\", function () {\r",
+							"        pm.expect(json.results[0].representante).to.be.eq(\"WILSON FERNANDO DE OLIVEIRA PENA\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://site-intuitive-care.up.railway.app/search",
+					"protocol": "https",
+					"host": [
+						"site-intuitive-care",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"search"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -7,7 +7,7 @@ __pycache__/
 venv/
 env/
 data/
-scripts_sql/tabelas_csv/
+Teste3/tabelas_csv/
 
 *.log
 *.tmp

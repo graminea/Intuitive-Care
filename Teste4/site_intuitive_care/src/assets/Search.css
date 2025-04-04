@@ -1,0 +1,188 @@
+/* Container principal da aplicação */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 1024px) {
+  #app {
+    display: flex;
+    justify-content: center;
+    grid-template-columns: unset;
+  }
+}
+
+/* Container da pesquisa - mantendo o visual original */
+.search-container {
+  width: 100%;
+  max-width: 600px; /* Largura maior */
+  min-width: 600px;
+  padding: 3rem; /* Aumenta o espaçamento interno */
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* Espaçamento entre os elementos */
+}
+/* Resto do seu CSS original */
+h1 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Garante que o container permita expansão */
+  max-width: 600px; /* Faz os inputs respeitarem esse tamanho */
+  gap: 1rem; /* Espaçamento entre os inputs */
+}
+
+
+input,
+select {
+  width: 100%;
+  max-width: 600px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #333;
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+input:focus,
+select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+}
+button {
+  width: 100%;
+  max-width: 200px;
+  padding: 10px 20px;
+  background: #007bff;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+/* Lista de resultados */
+.results {
+  margin-top: 2rem;
+}
+
+/* Estilização dos cards */
+.card {
+  background: #2a2a2a;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(255, 255, 255, 0.1);
+  margin-bottom: 1rem;
+  transition: all 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+/* Texto dos resultados */
+.card p {
+  color: #e0e0e0;
+  margin: 0.5rem 0;
+}
+
+/* Botão "Ver mais" */
+.details-button {
+  margin-top: 8px;
+  background: #28a745;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.details-button:hover {
+  background: #218838;
+  transform: scale(1.05);
+}
+
+/* Animação de entrada */
+.fade-enter-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter {
+ opacity:0;
+}
+
+.show-more-button {
+width: 100%;
+max-width: 200px;
+padding: 10px 20px;
+background: #ff9800;
+border: none;
+color: white;
+font-weight: bold;
+border-radius: 10px;
+font-size: 1rem;
+cursor: pointer;
+transition: all 0.3s;
+margin-top: 1rem;
+}
+
+.show-more-button:hover {
+background: #e68900;
+transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+.search-container {
+  width: 100%; /* Em vez de fixar 600px, usamos uma porcentagem para melhor adaptação */
+  min-width: unset; /* Remove o min-width que travava o tamanho */
+  padding: 2rem; /* Reduz um pouco o padding para caber melhor */
+}
+
+.controls {
+  width: 100%; /* Garante que os inputs ocupem toda a largura disponível */
+}
+
+input,
+select {
+  width: 100%; /* Faz os inputs se ajustarem ao tamanho da tela */
+  max-width: unset; /* Remove a limitação do max-width */
+}
+
+button {
+  width: 100%; /* Faz o botão ocupar toda a largura disponível */
+  max-width: unset;
+}
+}
