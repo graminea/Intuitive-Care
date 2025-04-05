@@ -2,6 +2,8 @@
 
 Este repositório contém a solução para o desafio técnico proposto pela Intuitive Care, dividido em 4 testes distintos.
 ---
+## Disclaimer: O link de conexão com o database está inteiro, com a senha, por otimizar o deploy, mas em um ambiente ideial seria utilizada uma variável de sistema protegida, como DBPASSWORD ou algo do tipo
+
 
 ## ✅ Requisitos
 
